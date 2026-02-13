@@ -3,7 +3,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { GameItem, GameState } from './types';
 import { ALPHABET_ITEMS } from './constants';
 import { GameCard } from './components/GameCard';
-import { playInstruction } from './services/gemini';
 import confetti from 'canvas-confetti';
 
 const App: React.FC = () => {
@@ -30,9 +29,6 @@ const App: React.FC = () => {
     setIsCorrecting(false);
     setShowWrongFeedback(false);
     setShowCorrectFeedback(false);
-    
-    const phrase = `Find the object that starts with the letter ${item.letter}!`;
-    playInstruction(phrase);
   }, [generateOptions]);
 
   const handleStart = () => {
@@ -58,9 +54,6 @@ const App: React.FC = () => {
         colors: ['#FFD700', '#FF6347', '#4682B4', '#32CD32']
       });
 
-      // Play "Good Job" and then immediately move to the next question
-      playInstruction(`Great! ${item.name} starts with ${item.letter}!`);
-
       // Snappy automatic transition
       setTimeout(() => {
         if (currentIndex < ALPHABET_ITEMS.length - 1) {
@@ -69,12 +62,10 @@ const App: React.FC = () => {
           startLevel(nextIdx);
         } else {
           setGameState(GameState.CELEBRATION);
-          playInstruction("Wow! You finished the whole alphabet! You are amazing!");
         }
-      }, 1500); // 1.5s delay to see the celebration before next question
+      }, 1500); 
     } else {
       setShowWrongFeedback(true);
-      playInstruction(`Oops! That is a ${item.name}. Try again! Find the object that starts with the letter ${currentItem.letter}!`);
       
       setTimeout(() => {
         setShowWrongFeedback(false);
