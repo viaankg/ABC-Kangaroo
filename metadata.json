@@ -1,0 +1,7 @@
+{
+  "name": "ABC Fun for Kids",
+  "description": "A colorful, interactive alphabet matching game designed for 3-year-olds with voice instructions and playful animations.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
